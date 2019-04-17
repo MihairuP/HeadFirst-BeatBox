@@ -1,3 +1,5 @@
+package player;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.sound.midi.*;
@@ -11,17 +13,17 @@ import java.awt.event.*;
 
 public class BeatBox {
 
-    JPanel mainPanel;
-    ArrayList<JCheckBox> checkboxList;
-    Sequencer sequencer;
-    Sequence sequence;
-    Track track;
-    JFrame theFrame;
+    private JPanel mainPanel;
+    private ArrayList<JCheckBox> checkboxList;
+    private Sequencer sequencer;
+    private Sequence sequence;
+    private Track track;
+    private JFrame theFrame;
 
-    String[] instrumentNames = {"Bass Drum", "Closed Hi-Hat", "Open Hi-Hat", "Acoustic Snare",
+    private String[] instrumentNames = {"Bass Drum", "Closed Hi-Hat", "Open Hi-Hat", "Acoustic Snare",
             "Crash Cymbal", "Hand clap", "High Tom", "Hi Bongo", "Maracas", "Whistle", "Low Conga",
             "Cowbell", "Vibraslap", "Low-mid Tom", "High Agogo", "Open Hi Conga"};
-    int[] instruments = {35, 42, 46, 38, 49, 39, 50, 60, 70, 72, 64, 56, 58, 47, 67, 63};
+    private int[] instruments = {35, 42, 46, 38, 49, 39, 50, 60, 70, 72, 64, 56, 58, 47, 67, 63};
 
     public class MyJButton extends JButton {
         MyJButton(String caption) {
@@ -72,7 +74,7 @@ public class BeatBox {
         buttonBox.add(serializeButton);
 
         JButton deserializeButton = new JButton("Load track");
-        deserializeButton.addActionListener(new MyReciveListener());
+        deserializeButton.addActionListener(new MyReceiveListener());
         buttonBox.add(deserializeButton);
 
         Box nameBox = new Box(BoxLayout.Y_AXIS);
@@ -106,7 +108,7 @@ public class BeatBox {
         theFrame.setVisible(true);
     }
 
-    public void setUpMidi() {
+    private void setUpMidi() {
         try {
             sequencer = MidiSystem.getSequencer();
             sequencer.open();
@@ -118,7 +120,7 @@ public class BeatBox {
         }
     }
 
-    public void buildTrackAndStart() {
+    private void buildTrackAndStart() {
         int[] trackList = null;
 
         sequence.deleteTrack(track);
@@ -183,7 +185,7 @@ public class BeatBox {
         }
     }
 
-    public void makeTracks(int[] list) {
+    private void makeTracks(int[] list) {
         for (int i = 0; i < 16; i++) {
             int key = list[i];
 
@@ -195,7 +197,7 @@ public class BeatBox {
         }
     }
 
-    public MidiEvent makeEvent(int comd, int chan, int one, int two, int tick) {
+    private MidiEvent makeEvent(int comd, int chan, int one, int two, int tick) {
         MidiEvent event = null;
         try {
             ShortMessage a = new ShortMessage();
@@ -229,7 +231,7 @@ public class BeatBox {
         }
     }
 
-    public class MyReciveListener implements ActionListener {
+    public class MyReceiveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             boolean[] checkboxState = null;
