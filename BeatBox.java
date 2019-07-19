@@ -23,14 +23,6 @@ public class BeatBox {
             "Cowbell", "Vibraslap", "Low-mid Tom", "High Agogo", "Open Hi Conga"};
     int[] instruments = {35, 42, 46, 38, 49, 39, 50, 60, 70, 72, 64, 56, 58, 47, 67, 63};
 
-    public class MyJButton extends JButton {
-        MyJButton(String caption) {
-            super(caption);
-            Font myFont = new Font("Courier New", 1, 23);
-            this.setFont(myFont);
-        }
-    }
-
     public static void main(String[] args) {
         new BeatBox().buildGUI();
     }
@@ -47,11 +39,10 @@ public class BeatBox {
         Box buttonBox = new Box(BoxLayout.Y_AXIS);
 
         JButton start = new JButton("Start");
-        start.setForeground(Color.GREEN);                       //Эксперимент с переделанной кнопкой
         start.addActionListener(new MyStartListener());
         buttonBox.add(start);
 
-        JButton stop = new MyJButton("Stop");           //Эксперимент с переопределенной кнопкой
+        JButton stop = new JButton("Stop");
         stop.addActionListener(new MyStopListener());
         buttonBox.add(stop);
 
@@ -186,8 +177,6 @@ public class BeatBox {
     public void makeTracks(int[] list) {
         for (int i = 0; i < 16; i++) {
             int key = list[i];
-
-
             if (key != 0) {
                 track.add(makeEvent(144, 9, key, 100, i));
                 track.add(makeEvent(128, 9, key, 100, i+1));
